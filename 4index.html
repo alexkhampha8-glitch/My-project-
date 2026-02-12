@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Valentine💜</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;500;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(180deg, #fff0f3 0%, #ffccd5 100%);
+            --pink-rose: #ff4d6d;
+            --pink-soft: #ff85a1;
+            --white-glass: rgba(255, 255, 255, 0.85);
+            --text-dark: #4a4a4a;
+        }
+
+        body {
+            font-family: 'Anuphan', sans-serif;
+            background: var(--bg-gradient);
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            min-height: 100vh;
+            overflow: hidden; /* ป้องกันการ scroll หน้าจอหลัก */
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header-section h1 {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(2.5rem, 10vw, 3.5rem);
+            color: var(--pink-rose);
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* --- Swiper / การ์ดรูปภาพ --- */
+        .swiper {
+            width: 85%;
+            max-width: 380px;
+            height: 60vh;
+            max-height: 480px;
+            padding-top: 10px;
+        }
+
+        .swiper-slide {
+            background: #fff;
+            border-radius: 30px;
+            padding: 12px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .photo-wrapper {
+            width: 100%; 
+            height: 100%;
+            overflow: hidden; 
+            border-radius: 22px;
+        }
+
+        .photo-wrapper img {
+            width: 100%; 
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- Info Bar --- */
+        .info-bar {
+            position: absolute;
+            bottom: 25px; left: 25px; right: 25px;
+            background: var(--white-glass);
+            padding: 12px 18px;
+            border-radius: 20px;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .info-text h4 { margin: 0; color: var(--text-dark); font-size: 0.95rem; }
+        .heart-icon { 
+            color: var(--pink-rose); 
+            font-size: 1.4rem; 
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .heart-icon:active { transform: scale(1.3); }
+
+        /* --- Menu Button --- */
+        .menu-container {
+            margin-top: 30px;
+            z-index: 10;
+            
+        }
+
+        .menu-btn {
+            background: white;
+            color: var(--pink-rose);
+            text-decoration: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.2);
+            transition: 0.3s;
+            border: 1px solid rgba(255, 77, 109, 0.2);
+        }
+
+        .menu-btn:active { transform: scale(0.95); }
+
+        /* --- Modal --- */
+        .modal {
+            display: none; position: fixed; z-index: 1000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: white; margin: 30vh auto; padding: 30px;
+            border-radius: 30px; width: 80%; max-width: 300px;
+            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            animation: popUp 0.3s ease-out;
+        }
+        @keyframes popUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-content button {
+            margin-top: 20px; background: var(--pink-rose); color: white;
+            border: none; padding: 12px 30px; border-radius: 50px;
+            font-family: 'Anuphan', sans-serif; cursor: pointer;
+            font-weight: 500;
+        }
+
+
+
+        /* Animation สำหรับปุ่มเมนูให้ดูน่ากด */
+.menu-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.menu-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(255, 77, 109, 0.4);
+    background: var(--pink-rose);
+    color: white !important;
+}
+
+/* เอฟเฟกต์ดาวกระจาย ✨ */
+.star-particle {
+    position: fixed;
+    pointer-events: none;
+    font-size: 1.2rem;
+    z-index: 9999;
+    animation: starFly 0.8s ease-out forwards;
+}
+
+@keyframes starFly {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    100% { transform: translate(var(--sx), var(--sy)) scale(0) rotate(var(--sr)); opacity: 0; }
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="header-section">
+        <h1>- Our Memories -</h1>
+    </div>
+
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="photo-wrapper">
+                    <img src="imge/pic9.png">
+                </div>
+                <div class="info-bar">
+                    <div class="info-text"style="font-weight: bold; margin-bottom: 10px;font-size: 1.2rem; margin-bottom: 30px;font-family: 'Noto Sans Lao', sans-serif;"><h4>ຄັ້ງແລກທີ່ເຮົາຮູ້ຈັກກັນ<br style="font-size: smaller;">ຕອນເຂົ້າຮ່ວມຂະບວນການວັນຊາດ</h4></div>
+                    
+                    <div class="heart-icon">❤️</div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="photo-wrapper">
+                    <img src="imge/pic10.jpeg">
+                </div>
+                <div class="info-bar">
+                    <div class="info-text"style="font-weight: bold; margin-bottom: 10px;font-size: 1.2rem; margin-bottom: 30px;font-family: 'Noto Sans Lao', sans-serif;"><h4>ອອກເດດເທື່ອແລກຂອງເຮົາສອງຄົນ<br>ໄດ້ທຳຄວາມຮູ້ຈັກກັນ ແຖມເປັນເດດທີ່ມ່ວນມາກ ຍາກໄປອີກອ່ະ ເບບີ້ ມື້ໃດຫວ່າງໄປນຳກັນນ່າ</h4></div>
+                    <div class="heart-icon">❤️</div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="photo-wrapper">
+                    <img src="/imge/pic11.jpeg">
+                </div>
+                <div class="info-bar">
+                    <div class="info-text"style="font-weight: bold; margin-bottom: 10px;font-size: 1.2rem; margin-bottom: 30px;font-family: 'Noto Sans Lao', sans-serif;"><h4>ຕຸກກະຕາ ແສນແບ້ວ (*/ω＼*)<br style="font-size: x-large;" >ສັ່ງໂຄດດົນເລີຍອ່ະ ແຕ່ກາຄຸມຍູ່ຄຸນແຟນຊອບອ່ະ</h4></div>
+                    <div class="heart-icon">❤️</div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="photo-wrapper">
+                    <img src="/imge/pic12.jpeg">
+                </div>
+                <div class="info-bar">
+                    <div class="info-text"style="font-weight: bold; margin-bottom: 10px;font-size: 1.2rem; margin-bottom: 30px;font-family: 'Noto Sans Lao', sans-serif;"><h4>ຮູບຄູ່ ວັນວາເລັນທາຍ💐✨  <br style="font-weight: bold;"
+                        >ຂອງຂວັນທີ່ດີ່ທີ່ສຸດຄືການມີເຈົ້າຍູ່ຄ່ຽງຂ້າງ
+                    
+                    </h4></div>
+                    <div class="heart-icon">❤️</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-container">
+        <a href="/3index.html" class="menu-btn">
+            <span style=" font-size: 1.2rem;font-size: 1.2rem; font-family: 'Noto Sans Lao', sans-serif;">📖</span> ກັບໄປຫນ້າເມນູ</a>
+    </div>
+
+    <div id="love-modal" class="modal">
+        <div class="modal-content">
+            <p id="modal-text"></p>
+            <button onclick="closeModal()" style="background: var(--pink-rose); color: white; border: none; padding: 10px 25px; border-radius: 50px; font-family: 'Noto Sans Lao', sans-serif; cursor: pointer;">ຕົກລງ ❤️</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Initialize Swiper
+        const swiper = new Swiper(".mySwiper", { 
+            effect: "cards", 
+            grabCursor: true,
+            rotate: true,
+            slideShadows: true
+        });
+
+        // Modal Logic
+        const modal = document.getElementById("love-modal");
+        
+        // ใช้ Event Delegation เพื่อความเสถียร
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('heart-icon')) {
+                const title = e.target.parentElement.querySelector('h4').innerText;
+                document.getElementById('modal-text').innerHTML = `ຂອບໃຈທີຍູ່ນຳກັນ<br><b>"${title}"</b>`;
+                modal.style.display = "block";
+            }
+        });
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // ปิด Modal เมื่อคลิกข้างนอกกล่อง
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+
+
+        // ฟังก์ชันสร้างดาวกระจาย (คล้ายกับหัวใจแต่เปลี่ยนสไตล์)
+function createStars(x, y) {
+    const stars = ['✨', '⭐', '🌟'];
+    for (let i = 0; i < 8; i++) {
+        const star = document.createElement('div');
+        star.innerHTML = stars[Math.floor(Math.random() * stars.length)];
+        star.className = 'star-particle';
+        
+        const moveX = (Math.random() - 0.5) * 150 + 'px';
+        const moveY = (Math.random() - 0.5) * 150 + 'px';
+        const rotate = (Math.random() * 360) + 'deg';
+        
+        star.style.left = x + 'px';
+        star.style.top = y + 'px';
+        star.style.setProperty('--sx', moveX);
+        star.style.setProperty('--sy', moveY);
+        star.style.setProperty('--sr', rotate);
+        
+        document.body.appendChild(star);
+        setTimeout(() => star.remove(), 800);
+    }
+}
+
+// เพิ่ม Event ให้ปุ่มเมนู
+document.querySelector('.menu-btn').addEventListener('click', function(e) {
+    // ป้องกันการเปลี่ยนหน้าทันทีเพื่อโชว์ Effect
+    e.preventDefault(); 
+    const targetUrl = this.getAttribute('href');
+    
+    // สร้างดาวกระจาย
+    createStars(e.clientX, e.clientY);
+    
+    // รอ 0.4 วินาทีค่อยเปลี่ยนหน้า
+    setTimeout(() => {
+        window.location.href = targetUrl;
+    }, 400);
+});
+   
+    </script>
+</body>
+</html>

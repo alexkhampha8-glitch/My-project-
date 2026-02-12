@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Valentine💜</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ffb7c5;
+            --bg-color: #fff0f3;
+            --text-color: #d63384;
+            --accent-pink: #ff4d6d;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Mali', cursive;
+            background-color: var(--bg-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .welcome-card {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(214, 51, 132, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            z-index: 10;
+        }
+
+        .heart-main {
+            font-size: 70px;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        h1 { color: var(--text-color); margin: 0 0 10px 0; font-size: 1.8rem; }
+        p { color: #b05a7e; margin-bottom: 30px; font-size: 1rem; }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-start {
+            background-color: var(--accent-pink);
+            color: white;
+            padding: 15px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 8px 15px rgba(255, 77, 109, 0.3);
+            width: 100%;
+        }
+
+        .btn-back {
+            background-color: transparent;
+            color: var(--text-color);
+            padding: 10px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 2px solid var(--primary-pink);
+            transition: 0.3s;
+            width: auto;
+        }
+
+        .btn-start:active, .btn-back:active { transform: scale(0.95); opacity: 0.8; }
+
+        .instruction {
+            margin-top: 25px;
+            font-size: 0.75rem;
+            color: #d63384;
+            opacity: 0.7;
+            background: #fff0f3;
+            padding: 10px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="welcome-card">
+        <div class="heart-main">🧩</div>
+        <h1>Memory Love</h1>
+        <p style="font-family: 'Noto Sans Lao', sans-serif;">ພ້ອມຈະຈັບຄູ່ຄວາມຫວານຫຼືຍັງຄ່ະ?</p>ມາວັດກັນວ່າໃຜຈິເກັ່ງກວ່າ🤩!</p>
+        
+        <div class="button-group">
+            <a href="9index.html" class="btn-start" style="font-family: 'Noto Sans Lao', sans-serif;">ເລີ່ມຫຼິ້ນເກມກັນເລີຍ! ❤️</a>
+            
+            <a href="3index.html" class="btn-back" style="font-family: 'Noto Sans Lao', sans-serif;">🔙 ກັບຫນ້າກເມນູ</a>
+        </div>
+        
+        <div class="instruction" style="font-family: 'Noto Sans Lao', sans-serif;">💡 <b>Tip:</b> ຈື່ຈໍາຕໍາແຫນ່ງຮູບພາບໃຫ້ດີໆເນີ້😆! <br>ເຈົ້າເຮັດຜິດໜ້ອຍລົງ, ຄະແນນຂອງເຈົ້າຈະດີຂຶ້ນ!!</div>
+
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Valentine💜</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ffb7c5;
+            --bg-color: #fff0f3;
+            --text-color: #d63384;
+            --card-back: #ff85a2;
+            --accent-pink: #ff4d6d;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Mali', cursive;
+            background-color: var(--bg-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+            padding: 20px;
+        }
+
+        h1 { font-size: 1.8rem; margin: 10px 0; }
+
+        .stats-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(214, 51, 132, 0.1);
+            font-weight: bold;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .memory-card {
+            aspect-ratio: 3/4;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            cursor: pointer;
+        }
+
+        .memory-card.flip { transform: rotateY(180deg); }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .front {
+            background-color: white;
+            transform: rotateY(180deg);
+            background-size: cover;
+            background-position: center;
+            border: 3px solid white;
+        }
+
+        .back {
+            background-color: var(--card-back);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        .back::after { content: "❤️"; }
+
+        /* Custom Modal (Pop-up ตอนชนะ) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            width: 100%;
+            max-width: 300px;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .heart-icon { font-size: 50px; animation: heartBeat 1s infinite; }
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .btn {
+            background: white;
+            border: 2px solid var(--primary-pink);
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-family: 'Mali';
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-main { background: var(--primary-pink); color: whitesmoke; border: none;
+        font-family: 'Noto Sans Lao',sans-serif; }
+    </style>
+</head>
+<body>
+
+    <h1>Memory Love 💖</h1>
+    
+    <div class="stats-container">
+        <div style="font-family: 'Noto Sans Lao',sans-serif">ເວລາ: <span id="timer">0</span> ວິນາທີ</div>
+        <div style="font-family: 'Noto Sans Lao',sans-serif">ກົດໄປແລ້ວ: <span id="moves">0</span> ຄັ້ງ</div>
+    </div>
+
+    <div class="game-grid" id="gameGrid"></div>
+
+    <div style="margin-top: 20px;">
+        <div class="btn" onclick="resetGame()"style="font-family: 'Noto Sans Lao',sans-serif">ເລີ່ມໃໝ່</div>
+        <a href="3index.html" class="btn"style="font-family: 'Noto Sans Lao',sans-serif">ກັບຫນ້າຫຼັກ</a>
+    </div>
+
+    <div class="modal" id="winModal">
+        <div class="modal-content">
+            <div class="heart-icon">💖</div>
+            <h2 style="font-family: 'Noto Sans Lao',sans-serif">ເກັ່ງທີ່ສຸດເລີຍອ່ະ😍</h2>
+            <p style="font-family: 'Noto Sans Lao',sans-serif">ໃຊ້ເວລາໄປ <span id="finalTime">0</span> ວິນາທີ</p>
+            <p style="font-family: 'Noto Sans Lao',sans-serif">ເປີດຫນ້າທັງມົດ <span id="finalMoves">0</span> ຄັ້ງ</p>
+            <div class="btn btn-main" onclick="closeModal()">ເລີ່ມຫຼິ້ນອີກຣອບນ່ະ ຫນ້າເວັບນີ້ຍາກມາກເລີຍ🥹!</div>
+        </div>
+    </div>
+
+<script>
+    // ใส่รูปของคุณ 6 รูปตรงนี้ครับ
+    const images = [
+        'imge/pic7.jpeg',
+        'imge/pic2.jpeg',
+        'imge/pic3.jpeg',
+        'imge/pic4.jpeg',
+        'imge/pic5.jpeg',
+        'imge/pic6.jpeg'
+    ];
+
+    let cards = [...images, ...images];
+    let flippedCards = [];
+    let matchedCount = 0;
+    let lockBoard = false;
+    let moves = 0;
+    let seconds = 0;
+    let timerInterval = null;
+    let gameStarted = false;
+
+    function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
+
+    function createBoard() {
+        const gameGrid = document.getElementById('gameGrid');
+        gameGrid.innerHTML = '';
+        shuffle(cards).forEach((imgUrl) => {
+            const card = document.createElement('div');
+            card.classList.add('memory-card');
+            card.dataset.name = imgUrl;
+            card.innerHTML = `<div class="front" style="background-image: url('${imgUrl}')"></div><div class="back"></div>`;
+            card.addEventListener('click', flipCard);
+            gameGrid.appendChild(card);
+        });
+    }
+
+    function flipCard() {
+        if (lockBoard || this === flippedCards[0]) return;
+        
+        if (!gameStarted) {
+            gameStarted = true;
+            timerInterval = setInterval(() => {
+                seconds++;
+                document.getElementById('timer').innerText = seconds;
+            }, 1000);
+        }
+
+        this.classList.add('flip');
+        flippedCards.push(this);
+
+        if (flippedCards.length === 2) {
+            moves++;
+            document.getElementById('moves').innerText = moves;
+            checkMatch();
+        }
+    }
+
+    function checkMatch() {
+        let isMatch = flippedCards[0].dataset.name === flippedCards[1].dataset.name;
+        if (isMatch) {
+            matchedCount += 2;
+            flippedCards = [];
+            if (matchedCount === cards.length) {
+                clearInterval(timerInterval);
+                showWinModal();
+            }
+        } else {
+            lockBoard = true;
+            setTimeout(() => {
+                flippedCards[0].classList.remove('flip');
+                flippedCards[1].classList.remove('flip');
+                flippedCards = [];
+                lockBoard = false;
+            }, 800);
+        }
+    }
+
+    function showWinModal() {
+        document.getElementById('finalTime').innerText = seconds;
+        document.getElementById('finalMoves').innerText = moves;
+        document.getElementById('winModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('winModal').style.display = 'none';
+        resetGame();
+    }
+
+    function resetGame() {
+        clearInterval(timerInterval);
+        seconds = 0; moves = 0; gameStarted = false; matchedCount = 0;
+        document.getElementById('timer').innerText = "0";
+        document.getElementById('moves').innerText = "0";
+        createBoard();
+    }
+
+    createBoard();
+</script>
+</body>
+</html>

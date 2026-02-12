@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine💜</title>
+    <link href="/8index.html" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ffb7c5;
+            --bg-color: #fff0f3;
+            --text-color: #d63384;
+            --accent-color: #ff4d6d;
+        }
+
+        body {
+            font-family: 'Mali', cursive;
+            background-color: var(--bg-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+            z-index: 10;
+        }
+
+        .header-section {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 40px;
+            box-shadow: 0 15px 35px rgba(214, 51, 132, 0.1);
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* --- สไตล์รูปภาพที่เป็นลิงก์ --- */
+        .profile-link {
+            display: inline-block;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .profile-link:hover {
+            transform: scale(1.1); /* ขยายรูปเมื่อวางเมาส์ */
+        }
+
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 6px solid var(--primary-pink);
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .timer-item {
+            background: #fffafa;
+            padding: 15px 5px;
+            border-radius: 20px;
+            border: 1px solid #ffe4e8;
+        }
+
+        .timer-item span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .timer-item p { margin: 0; font-size: 0.75rem; opacity: 0.6; }
+
+        .btn-back-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-back {
+            background: var(--primary-pink);
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.2);
+            transition: 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-back:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .flower {
+            position: absolute;
+            top: -20px;
+            border-radius: 10px 1px 10px 1px;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall { to { transform: translateY(105vh) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-section">
+            
+            <a href="/6index.html" class="profile-link" title="คลิกเพื่อดูความทรงจำ">
+                <img src="/imge/pic8.jpeg" alt="Couple" class="profile-img">
+            </a>
+            
+            <h2>Our Love Journey</h2>
+            <p style="opacity: 0.8;font-size: 1.2rem; margin-bottom: 30px;font-family: 'Noto Sans Lao', sans-serif;">ມື້ຄົບຮອບ ວັນທີ 1 ທັນວາ 2025</p>
+            
+            <div class="timer-grid">
+                <div class="timer-item"><span id="days">0</span><p>Days</p></div>
+                <div class="timer-item"><span id="hours">0</span><p>Hours</p></div>
+                <div class="timer-item"><span id="minutes">0</span><p>Mins</p></div>
+                <div class="timer-item"><span id="seconds">0</span><p>Secs</p></div>
+            </div>
+            
+            <p style="font-weight: bold; margin-bottom: 10px;font-size: 1.2rem; margin-bottom: 30px;font-family: 'Noto Sans Lao', sans-serif;">ເພື່ອໃຜບາງຄົນລືມອ່ະ😤💜</p>
+
+            <div class="btn-back-container">
+                <a href="/3index.html" class="btn-back" style="font-size: 1.2rem; margin-bottom: 30px;font-family: 'Noto Sans Lao', sans-serif;">ກັບຫນ້າເມນູຫຼັກ</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const startDate = new Date("2025-12-01T00:00:00");
+
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((diff / 1000 / 60) % 60);
+            const s = Math.floor((diff / 1000) % 60);
+            document.getElementById("days").innerText = d;
+            document.getElementById("hours").innerText = h;
+            document.getElementById("minutes").innerText = m;
+            document.getElementById("seconds").innerText = s;
+        }
+        
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.classList.add('flower');
+            flower.style.width = flower.style.height = Math.random() * 15 + 10 + "px";
+            flower.style.left = Math.random() * 100 + "vw";
+            flower.style.animationDuration = Math.random() * 5 + 5 + "s";
+            flower.style.backgroundColor = ['#ffcdd2', '#f8bbd0', '#f48fb1'][Math.floor(Math.random() * 3)];
+            document.body.appendChild(flower);
+            setTimeout(() => flower.remove(), 10000);
+        }
+        setInterval(createFlower, 400);
+    </script>
+</body>
+</html>
